@@ -1,0 +1,35 @@
+version: 1
+providers:
+  - id: hammer
+    source: https://github.com/SebastianElvis/hammer
+    revision: c5b86153b15621649560cee247659840738aadae
+    capability: tutoring_and_review
+    required: true
+    writeScope: learner_state_only
+    invocation:
+      ref: main
+  - id: tutor
+    source: https://github.com/kevinnio/tutor
+    revision: 88ffe9ac5e3e41962393f8eb14b080a6c039ed40
+    version: v0.6
+    capability: read_only_practice_guidance
+    required: true
+    writeScope: none
+    invocation:
+      ref: v0.6
+  - id: obsidian-skills
+    source: https://github.com/h2ik/obsidian-skills
+    revision: 0390b31d2c48594df09d4fbb8ba1b1bcd1248b85
+    capability: note_and_session_output
+    required: false
+    writeScope: vault_notes_only
+    invocation:
+      ref: main
+  - id: lark-cli
+    source: https://github.com/larksuite/cli
+    revision: 4fddd6bc3763f2105a2e31f0a992f19554aa350f
+    capability: document_publish
+    required: false
+    writeScope: remote_documents_after_confirmation
+    invocation:
+      ref: main

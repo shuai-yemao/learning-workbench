@@ -1,0 +1,7 @@
+version: 1
+providers:
+  - source: https://github.com/SebastianElvis/hammer
+    revision: c5b86153b15621649560cee247659840738aadae
+    capability: tutoring_and_review
+    required: true
+    writeScope: learner_state_only

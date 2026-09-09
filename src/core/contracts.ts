@@ -26,6 +26,7 @@ export interface ProviderManifest {
   capability: string;
   required: boolean;
   writeScope: WriteScope;
+  version?: string;
   invocation?: Record<string, string>;
 }
 
