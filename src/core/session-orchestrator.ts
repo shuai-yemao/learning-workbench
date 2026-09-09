@@ -171,7 +171,7 @@ export class SessionOrchestrator {
       outputContract: "publish-result",
     };
     const result = await this.invoke(provider, request, policy, operation);
-    await this.completePublish(session, result);
+    await this.completePublish(session, target, result);
     return result;
   }
 
@@ -196,6 +196,13 @@ export class SessionOrchestrator {
     const result = await this.invoke(provider, request, policy, operation);
     if (result.status !== "ok" && provider?.required === true) {
       await this.saveStatus(sessionId, "provider_unavailable");
+    } else if (result.status === "ok" && mode === "learn") {
+      const current = await this.requireSession(sessionId);
+      await this.options.sessionStore.save({
+        ...current,
+        reviewItemsPending: current.reviewItemsPending + 1,
+        updatedAt: this.now().toISOString(),
+      });
     }
     return result;
   }
@@ -228,11 +235,18 @@ export class SessionOrchestrator {
     return result;
   }
 
-  private async completePublish(session: SessionRecord, result: ProviderResult): Promise<void> {
+  private async completePublish(
+    session: SessionRecord,
+    target: PublishTarget,
+    result: ProviderResult,
+  ): Promise<void> {
     if (result.status === "denied") {
       return;
     }
-    await this.saveStatus(session.sessionId, "published");
+    await this.saveStatus(
+      session.sessionId,
+      target === "feishu" && result.status !== "ok" ? "publish_failed" : "published",
+    );
   }
 
   private async advanceTo(session: SessionRecord, target: SessionRecord["status"]): Promise<void> {

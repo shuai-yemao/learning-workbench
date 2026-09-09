@@ -22,3 +22,16 @@ SHA 来源命令为 `git ls-remote`，仅读取远端引用，没有 clone、安
 - `available`：只有 registry 收到与 manifest 完全匹配的已验证 revision 才会返回；这表示版本校验通过，不等同于已完成真实能力调用。
 - `missing`：registry 中没有请求的 Provider ID。
 - `invalid`：manifest 校验失败时抛出稳定的 `ProviderManifestError`，不会被当作可用 Provider。
+
+## 只读审计记录
+
+本 MVP 只锁定并读取了四个仓库的远端 revision，不 clone、安装、执行或修改它们。以下运行时信息在当前边界内均保留为 `unverified`：
+
+| Provider | 入口/调用方式 | 可写路径 | 只读工具集 | 认证来源 | 失败状态 | 许可证/版本核对 |
+| --- | --- | --- | --- | --- | --- | --- |
+| `hammer` | 由宿主 adapter 按 logical ID 调用 | 未接入 | 未验证 | 未接入 | 未验证 | revision 已锁定，运行时未核对 |
+| `tutor` | `v0.6` logical ID，由宿主 adapter 调用 | `none`（组合层契约） | 未验证 | 未接入 | 未验证 | `v0.6` 已锁定，运行时未核对 |
+| `obsidian-skills` | 由宿主 adapter 按 logical ID 调用 | 仅允许 Vault 笔记范围 | 未验证 | 未接入 | 未验证 | revision 已锁定，运行时未核对 |
+| `lark-cli` | 由宿主 adapter 按 logical ID 调用 | 仅显式确认后的远程文档 | 未验证 | 未接入 | 未验证 | revision 已锁定，运行时未核对 |
+
+因此表中的 `writeScope` 是 Learning Workbench 的组合策略，不是对外部仓库内部行为的证明。真正接入前必须分别阅读锁定 revision 的入口、权限和认证说明，并补充宿主级验证记录；在此之前不得把 Provider 标成 `available`。
