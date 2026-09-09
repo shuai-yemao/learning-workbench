@@ -1,5 +1,7 @@
 export type Mode = "learn" | "practice" | "review" | "publish";
 
+import type { ExecutionPolicy } from "./policy-gate.js";
+
 export type SessionStatus =
   | "created"
   | "calibrating"
@@ -55,6 +57,14 @@ export interface ProviderRequest {
   topic: string;
   prompt: string;
   outputContract: string;
+}
+
+export interface ProviderInvoker {
+  invoke(
+    provider: ProviderManifest,
+    request: ProviderRequest,
+    policy: ExecutionPolicy,
+  ): Promise<ProviderResult>;
 }
 
 export interface AuditEvent {
