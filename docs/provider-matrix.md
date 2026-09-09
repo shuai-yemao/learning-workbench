@@ -11,6 +11,10 @@ SHA 来源命令为 `git ls-remote`，仅读取远端引用，没有 clone、安
 | `obsidian-skills` | `https://github.com/h2ik/obsidian-skills` | `main` | `0390b31d2c48594df09d4fbb8ba1b1bcd1248b85` | `note_and_session_output` | `vault_notes_only` | `unverified` |
 | `lark-cli` | `https://github.com/larksuite/cli` | `main` | `4fddd6bc3763f2105a2e31f0a992f19554aa350f` | `document_publish` | `remote_documents_after_confirmation` | `unverified` |
 
+入口 Skill 使用上述 logical ID，不直接绑定仓库命令。调用命令、认证方式和宿主适配由 manifest/adapter 提供；当前四个 Provider 均未安装、加载或真实调用，因此保持 `unverified`。
+
+任务 7 的文档检查范围：确认 `skills/learning-workbench/` 中的模式名、Provider ID、`writeScope` 和 Session 状态与 TypeScript 契约及本表一致。`npm run check` 当前覆盖 TypeScript lint/build；Markdown 通过本任务的人工契约核对，未引入额外文档工具或 Provider 安装。
+
 ## 状态边界
 
 - `revision locked`：远端引用在本任务中通过 `git ls-remote` 返回了完整 40 位 SHA-1，并写入 `providers.yaml`。
