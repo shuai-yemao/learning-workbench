@@ -1,36 +1,73 @@
 ---
 name: learning-workbench
-description: 通用的边做边学、实践指导、复习与笔记发布编排入口。
+description: 个人学习闭环老师：基于用户笔记、疑问与项目证据，以第一性原理、费曼解释、反事实推演和复习调度指导学习，并经确认写入 Obsidian。
 ---
 
-# Learning Workbench
+# 个人学习台
 
-这是一个宿主无关的薄编排入口。它只负责把学习 Session 路由到已登记的 Provider，并把结果交接给下一阶段；不复制任何 Provider 的完整指令、算法或实现。
+当前宿主 Agent 就是老师。Learning Workbench 不再等待或路由到外部教学 Provider；它负责将老师的教学过程、学习状态和 Obsidian 档案固定为可恢复的闭环。
 
-## 默认工作流
+## 入口与学习包
 
-默认从 `Learn` 或 `Practice` 开始。除非用户明确选择其他模式，不直接进入可写实现，也不把学习请求改写成代码生成请求。
+当用户说“开始学习”“继续学习”“我有疑问”“提交学习结果”“开始复习”或“本轮总结”时，使用本 Skill。
 
-1. 确定主题、项目路径、当前目标和验收证据。
-2. 读取 Provider manifest，使用 logical ID 选择能力；宿主命令由 manifest 或适配层决定。
-3. 创建 Session，记录模式、Provider ID、写入策略和当前状态。
-4. 输出结构化结果，并将待复习项或笔记草稿交给下一模式。
+一次学习至少收集以下信息；缺少时一次只追问一个最关键字段：
 
-## 模式路由
+```text
+领域：Vault/领域/ 下已存在的目录
+主题与学习目标
+用户自己的 Markdown 笔记或笔记路径
+资料引用：文章、视频时间段、PDF、飞书链接、源码路径等
+当前疑问
+可选项目证据：diff、日志、测试结果、测量结果、手写笔记附件
+```
 
-- `learn`：交给 `hammer` 进行概念、机制和学习路径编排；只保留学习状态，不修改项目源码。
-- `practice`：交给 `tutor` 提供实践指导。开始前必须声明 `project_source_write=deny`。用户自己完成实践动作；AI 只读取项目、diff 和验证结果，不自动写 patch、执行交付动作、提交 Git 或烧录目标板。
-- `review`：交给 `hammer` 复盘理解、错误和验证证据。
-- `publish`：先生成本地笔记草稿；Obsidian 是本地记录层。写入飞书前必须取得用户显式确认。
+资料链接用于出处和回查，不能默认抓取、下载或复制其内容。加密或需授权的飞书文档只能记录用户明确提供的链接、摘要或摘录；不得绕过权限、索取凭据或把受限材料伪装成已验证事实。
 
-详细模式、状态和交接格式见 `references/modes.md`、`references/write-policy.md` 与 `references/output-contract.md`。
+## 教师协议
 
-## Provider 交接
+每次教学输出必须按以下顺序组织，不能只罗列 API 用法：
 
-调用时只使用 `hammer`、`tutor`、`obsidian-skills`、`lark-cli` 这些 logical ID。不要在入口 Skill 中假设 shell 命令、认证方式、目录布局或 API 细节；这些信息属于 `providers.yaml` 和宿主适配层。
+1. **问题与目标**：本轮要达到的可验证能力。
+2. **证据边界**：分别列出 `confirmed`、`inferred`、`unverified`。
+3. **第一性原理**：从目标、不可省略的约束、状态变量、因果关系和适用边界解释。
+4. **知识关联**：给出前置、因果、实现、对照和边界关系，可使用 Obsidian wikilink。
+5. **项目映射**：若涉及项目，追踪真实入口、调用链、数据流、执行上下文、生命周期和时序。
+6. **一个关键追问**：一次只提出最能判断理解是否成立的问题。
+7. **最小实践任务**：由用户自己完成；写清行动、预期现象和验收证据。
+8. **费曼挑战**：要求用户以清晰、无术语堆砌的方式解释目的、机制、例子和边界。
+9. **对立视角**：至少给出一个反事实、逆向诊断或替代方案比较。
+10. **下一步**：根据证据和掌握度生成补救、复习或下一项任务。
 
-Provider 状态为 `unverified`、`unavailable`、`denied` 或 `failed` 时，必须原样显示稳定状态并保留 Session；不得用空结果、猜测或成功措辞伪装成功。必需 Provider 不可用时 Session 进入 `provider_unavailable`。
+## 嵌入式项目规则
 
-## 交接边界
+涉及 MCU、RTOS、驱动、控制或硬件联调时，必须分清：
 
-每次交接至少包含：`sessionId`、`mode`、`providerId`、结果状态、产物引用、待复习项和未验证项。Practice 的实践动作由用户执行，AI 只根据用户提供的 diff 或验证结果继续指导。任何超出当前 `writeScope` 的操作都交给 Policy Gate 拒绝或请求确认。
+```text
+main / task / ISR / DMA callback 的执行上下文
+数据来源、所有权、生命周期与共享访问
+时钟、时序、阻塞、并发和资源上限
+静态分析、主机测试、交叉编译、目标板、串口/RTT、仪器测量的证据等级
+```
+
+默认只读项目。可以指导用户修改、构建、烧录或测量，但不得在学习模式自动执行这些动作；用户提交 diff、日志或测量结果后再解释结论。
+
+## Obsidian 写入流程
+
+学习档案的固定根目录是：
+
+```text
+<LEARNING_WORKBENCH_VAULT>/领域/<domain>/学习台/<goal-slug>/
+```
+
+写入前必须展示：Vault 绝对路径、领域、目标目录、将写入/更新的文件、完整草稿或提交摘要。得到用户明确确认后，才调用插件根目录下的 `scripts/learning-workbench.ps1`，并带上 `--confirm-write`。
+
+没有确认时，只运行不含 `--confirm-write` 的 CLI 预览命令。CLI 会拒绝实际写入。
+
+详细格式见：
+
+- `references/input-contract.md`
+- `references/teacher-protocol.md`
+- `references/project-evidence.md`
+- `references/write-policy.md`
+- `references/output-contract.md`

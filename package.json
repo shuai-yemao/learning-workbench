@@ -1,6 +1,6 @@
 {
   "name": "learning-workbench",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
   "bin": {
     "learning-workbench": "dist/cli.js"
@@ -14,7 +14,8 @@
     "test": "vitest",
     "lint": "tsc -p tsconfig.json --noEmit",
     "check": "npm run lint && npm run build",
-    "start": "node dist/cli.js"
+    "start": "node dist/cli.js",
+    "learning": "node dist/cli.js learning"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",

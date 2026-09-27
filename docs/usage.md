@@ -1,26 +1,75 @@
-# Learning Workbench MVP 使用说明
+# Learning Workbench 使用说明
 
-## 诊断
+## 配置 Vault
 
-```text
-npm run build
-node dist/cli.js diagnose
+Learning Workbench 通过环境变量定位 Vault，不在仓库中保存用户的绝对路径：
+
+```powershell
+$env:LEARNING_WORKBENCH_VAULT = 'C:\Users\zhang\Documents\Obsidian Vault'
 ```
 
-诊断结果区分 `available`、`missing`、`invalid` 和 `unverified`。MVP 不自动安装或启动四个外部 Provider，因此仅凭 manifest 不能标记为 `available`。
-
-## Session
+目标领域必须已存在于：
 
 ```text
-node dist/cli.js session start --topic "FreeRTOS queue" --mode practice
-node dist/cli.js session status <session-id>
-node dist/cli.js session audit <session-id>
+<Vault>/领域/
 ```
 
-默认数据目录是当前工作目录下的 `.learning-workbench/`，也可以通过 `LEARNING_WORKBENCH_DATA_DIR` 指定。manifest 默认读取当前工作目录下的 `providers.yaml`，可通过 `LEARNING_WORKBENCH_MANIFEST` 指定。
+## 创建目标
 
-CLI 只创建本地 Session、读取状态和审计；它不会修改项目源码、生成补丁、执行交付动作、提交 Git、烧录目标板，也不会直接调用飞书 API。Provider 对应的本地 Skill 已安装，但真实宿主 adapter、认证和 API 调用仍属于后续边界。
+`goal.json`：
 
-## 质量边界
+```json
+{
+  "domain": "嵌入式",
+  "title": "FreeRTOS Queue 阻塞与唤醒",
+  "kind": "project",
+  "objective": "解释阻塞条件，并定位项目中的发送和接收调用链。",
+  "successCriteria": [
+    "完成费曼解释",
+    "给出一个反事实推演"
+  ]
+}
+```
 
-端到端测试使用 fake ProviderInvoker，只验证路由、权限、Session 状态和失败隔离；不会读取真实 Vault、真实飞书文档或真实凭据。四个外部 Provider 的版本、入口、认证和内部写入行为仍以 `docs/provider-matrix.md` 中的 `unverified` 记录为准。
+先预览：
+
+```powershell
+node dist/cli.js learning create --input .\goal.json --start-on 2026-09-27
+```
+
+确认后写入：
+
+```powershell
+node dist/cli.js learning create --input .\goal.json --start-on 2026-09-27 --confirm-write
+```
+
+## 提交学习结果
+
+`submission.json`：
+
+```json
+{
+  "taskId": "从 status 输出复制的 taskId",
+  "reflectionMarkdown": "我能够解释队列满时发送任务等待空间，但仍需验证唤醒顺序。",
+  "evidencePaths": ["附件/手写时序图.jpg"],
+  "mastery": 2
+}
+```
+
+预览和确认：
+
+```powershell
+node dist/cli.js learning submit --domain 嵌入式 --slug freertos-queue --input .\submission.json --completed-on 2026-09-27
+node dist/cli.js learning submit --domain 嵌入式 --slug freertos-queue --input .\submission.json --completed-on 2026-09-27 --confirm-write
+```
+
+掌握度映射为：`0/1 → 1 天`、`2 → 3 天`、`3 → 7 天`。掌握度为 `0` 或用户标记阻塞时，会生成次日补救任务。
+
+## 恢复状态与开始复习
+
+```powershell
+node dist/cli.js learning status --domain 嵌入式 --slug freertos-queue
+node dist/cli.js learning due --domain 嵌入式 --slug freertos-queue --date 2026-09-30
+```
+
+`due` 输出所有截至指定日期未完成的任务和未完成的复习项。

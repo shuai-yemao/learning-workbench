@@ -1,0 +1,23 @@
+{
+  "name": "learning-workbench",
+  "version": "0.2.0",
+  "description": "以 Obsidian 为学习档案的个人学习闭环老师。",
+  "author": {
+    "name": "zhang"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "个人学习台",
+    "shortDescription": "将笔记、疑问和项目证据变成可验证的学习闭环。",
+    "longDescription": "由当前 Codex Agent 担任老师，使用第一性原理、费曼解释、项目映射和复习调度指导学习。",
+    "developerName": "zhang",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Write"],
+    "defaultPrompt": [
+      "使用学习台开始一个嵌入式学习目标。",
+      "继续我当前的学习计划并给出今日任务。",
+      "根据我的学习记录开始一次复习。"
+    ],
+    "brandColor": "#2563EB"
+  }
+}

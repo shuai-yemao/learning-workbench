@@ -1,29 +1,15 @@
-# Session 输出契约
+# 学习档案输出契约
 
-每次 Provider 交接和模式输出都应能映射到以下结构。内容可以由宿主适配层渲染为 Markdown、Obsidian 笔记或飞书文档，但不得丢失状态和证据边界。
+每个学习目标必须保留：
 
-```yaml
-sessionId: <stable-session-id>
-mode: learn | practice | review | publish
-providerId: hammer | tutor | obsidian-skills | lark-cli
-status: ok | unavailable | denied | failed
-summary: <short result>
-evidence:
-  - <project path, diff, test result, or user-provided observation>
-artifacts:
-  - <local draft or provider artifact reference>
-reviewItems:
-  - <pending question or verification step>
-writeScope: none | learner_state_only | vault_notes_only | remote_documents_after_confirmation
-nextAction: <one concrete next action>
-unverified:
-  - <missing provider, hardware, or external verification>
+```text
+00-学习总览.md：目标、验收标准、当前阶段
+01-材料索引.md：资料引用、范围、访问边界与用户摘要
+02-学习计划.md：任务、原理目标、证据、费曼挑战、反事实问题
+03-今日任务.md：待办与阻塞任务
+04-复习队列.md：到期复习和来源任务
+学习记录/：用户每次提交的反思、证据和掌握度
+.learning-workbench/state.json：稳定 ID、状态与调度数据
 ```
 
-## 交接规则
-
-- `providerId` 必须使用 manifest 中的 logical ID，不写仓库命令或未经验证的别名。
-- `status` 必须反映真实 Provider 状态；`unavailable`、`denied` 和 `failed` 不能被渲染为 `ok`。
-- `evidence` 只记录已观察到的项目、diff、验证输出或用户确认；推测标为 `unverified`。
-- Practice 输出以指导和检查点为主，不能暗示 AI 已替用户完成实践动作。
-- 发布输出先形成可审阅草稿。Obsidian 本地写入和飞书远程发布分别受其 `writeScope` 约束。
+每次教学交接至少包含：目标、证据边界、知识关联、项目映射、最小实践、费曼挑战、反事实模拟、掌握度、复习项和未验证项。
