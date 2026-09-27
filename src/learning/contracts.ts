@@ -59,6 +59,16 @@ export interface LearningSubmission {
   blockedReason?: string;
 }
 
+export interface LearningState {
+  schemaVersion: 1;
+  goal: LearningGoal;
+  materials: LearningMaterial[];
+  tasks: LearningTask[];
+  reviews: ReviewItem[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 const CLAIM_STATUSES: ReadonlySet<string> = new Set(["confirmed", "inferred", "unverified"]);
 const LEARNING_KINDS: ReadonlySet<string> = new Set(["theory", "project"]);
 
