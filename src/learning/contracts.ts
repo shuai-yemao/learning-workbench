@@ -59,12 +59,17 @@ export interface LearningSubmission {
   blockedReason?: string;
 }
 
+export interface LearningSubmissionRecord extends LearningSubmission {
+  submittedAt: string;
+}
+
 export interface LearningState {
   schemaVersion: 1;
   goal: LearningGoal;
   materials: LearningMaterial[];
   tasks: LearningTask[];
   reviews: ReviewItem[];
+  submissions: LearningSubmissionRecord[];
   createdAt: string;
   updatedAt: string;
 }

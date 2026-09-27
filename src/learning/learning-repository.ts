@@ -5,10 +5,17 @@ import {
   validateLearningGoalDraft,
   type LearningGoal,
   type LearningGoalDraft,
+  type LearningSubmissionRecord,
   type LearningState,
 } from "./contracts.js";
 import { resolveGoalDirectory } from "./domain-path.js";
-import { renderInitialLearningArchive } from "./markdown-renderer.js";
+import {
+  renderInitialLearningArchive,
+  renderLearningPlan,
+  renderReviewQueue,
+  renderSubmissionRecord,
+  renderTodayTasks,
+} from "./markdown-renderer.js";
 
 export type LearningRepositoryErrorCode =
   | "GOAL_ALREADY_EXISTS"
@@ -42,7 +49,8 @@ function isLearningState(value: unknown): value is LearningState {
     "goalId" in value.goal && typeof value.goal.goalId === "string" &&
     "materials" in value && Array.isArray(value.materials) &&
     "tasks" in value && Array.isArray(value.tasks) &&
-    "reviews" in value && Array.isArray(value.reviews);
+    "reviews" in value && Array.isArray(value.reviews) &&
+    "submissions" in value && Array.isArray(value.submissions);
 }
 
 export class LearningRepository {
@@ -91,6 +99,7 @@ export class LearningRepository {
       materials: [],
       tasks: [],
       reviews: [],
+      submissions: [],
       createdAt: timestamp,
       updatedAt: timestamp,
     };
@@ -132,6 +141,40 @@ export class LearningRepository {
       throw new LearningRepositoryError("LEARNING_STATE_CORRUPT", "Learning state has an invalid structure.");
     }
     return parsed;
+  }
+
+  async save(domain: string, slug: string, state: LearningState): Promise<void> {
+    const directory = await resolveGoalDirectory(this.vaultRoot, domain, slug);
+    try {
+      await this.writeState(directory, state);
+      await Promise.all([
+        writeFile(join(directory, "02-学习计划.md"), renderLearningPlan(state), "utf8"),
+        writeFile(join(directory, "03-今日任务.md"), renderTodayTasks(state), "utf8"),
+        writeFile(join(directory, "04-复习队列.md"), renderReviewQueue(state), "utf8"),
+      ]);
+    } catch (error) {
+      if (error instanceof LearningRepositoryError) {
+        throw error;
+      }
+      throw new LearningRepositoryError("LEARNING_STATE_WRITE_FAILED", "Unable to update the learning archive.", { cause: error });
+    }
+  }
+
+  async writeSubmission(
+    domain: string,
+    slug: string,
+    submission: LearningSubmissionRecord,
+    state: LearningState,
+  ): Promise<void> {
+    const directory = await resolveGoalDirectory(this.vaultRoot, domain, slug);
+    const date = submission.submittedAt.slice(0, 10);
+    const taskSegment = submission.taskId.replace(/[^a-zA-Z0-9_-]/g, "-") || "task";
+    const path = join(directory, "学习记录", `${date}-${taskSegment}.md`);
+    try {
+      await writeFile(path, renderSubmissionRecord(state, submission), { encoding: "utf8", flag: "wx" });
+    } catch (error) {
+      throw new LearningRepositoryError("LEARNING_STATE_WRITE_FAILED", "Unable to write the learning submission record.", { cause: error });
+    }
   }
 
   private async writeState(directory: string, state: LearningState): Promise<void> {

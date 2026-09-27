@@ -1,4 +1,4 @@
-import { mkdtemp, mkdir, readFile, rm } from "node:fs/promises";
+import { mkdtemp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { afterEach, describe, expect, it } from "vitest";
@@ -56,5 +56,17 @@ describe("LearningRepository", () => {
 
     await expect(repository.createGoal(draft))
       .rejects.toMatchObject({ code: "GOAL_ALREADY_EXISTS" } satisfies Partial<LearningRepositoryError>);
+  });
+
+  it("rejects a state file that is missing the submission history", async () => {
+    const { vault, repository } = await createRepository();
+    await repository.createGoal(draft);
+    const statePath = join(vault, "领域", "嵌入式", "学习台", "freertos-queue", ".learning-workbench", "state.json");
+    const state = JSON.parse(await readFile(statePath, "utf8")) as Record<string, unknown>;
+    delete state.submissions;
+    await writeFile(statePath, JSON.stringify(state), "utf8");
+
+    await expect(repository.load("嵌入式", "freertos-queue"))
+      .rejects.toMatchObject({ code: "LEARNING_STATE_CORRUPT" } satisfies Partial<LearningRepositoryError>);
   });
 });
