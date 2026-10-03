@@ -1,0 +1,4 @@
+interface:
+  display_name: "具体知识点学习"
+  short_description: "开放探索知识关联，通过我输出思维导图、参加考试和撰写费曼文章检验掌握并迭代理解"
+  default_prompt: "使用 $knowledge-point-learning，围绕我的核心知识点和关联知识学习，再让我依次输出思维导图、完成考试、撰写费曼文章，并据此诊断和修正理解。"

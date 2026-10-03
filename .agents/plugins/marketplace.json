@@ -1,0 +1,20 @@
+{
+  "name": "learning-workbench",
+  "interface": {
+    "displayName": "Learning Workbench"
+  },
+  "plugins": [
+    {
+      "name": "learning-workbench",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

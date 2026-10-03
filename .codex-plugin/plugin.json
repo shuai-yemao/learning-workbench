@@ -1,0 +1,24 @@
+{
+  "name": "learning-workbench",
+  "version": "0.3.0",
+  "description": "以学习目的和真实产出为依据的个人学习闭环插件。",
+  "author": {
+    "name": "zhang"
+  },
+  "homepage": "https://github.com/shuai-yemao/learning-workbench",
+  "repository": "https://github.com/shuai-yemao/learning-workbench",
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "个人学习台",
+    "shortDescription": "规划学习，检验理解，持续记录目标与进度。",
+    "longDescription": "整体学习指导维护学习目标与进度；知识点学习通过用户导图、考试和费曼文章检验理解；快速问答简短解决概念疑问。由当前 Codex Agent 执行教学与文件维护。",
+    "developerName": "zhang",
+    "category": "Productivity",
+    "capabilities": ["Interactive", "Read", "Write"],
+    "defaultPrompt": [
+      "使用整体学习指导，明确我的学习目的并创建学习进度与目标文件。",
+      "使用具体知识点学习，让我依次输出思维导图、完成考试和撰写费曼文章。",
+      "使用快速概念问答，简短解释我的问题。"
+    ]
+  }
+}

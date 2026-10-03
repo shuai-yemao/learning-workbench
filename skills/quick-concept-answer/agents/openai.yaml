@@ -1,0 +1,4 @@
+interface:
+  display_name: "快速概念问答"
+  short_description: "简短回答概念定义、用途、区别和局部疑问，保留关键条件与边界，按需进入深入学习"
+  default_prompt: "使用 $quick-concept-answer，简短解释我的概念问题，直接给出结论和必要的例子或边界。"
