@@ -1,0 +1,32 @@
+{
+  "schema_version": 2,
+  "diagram_type": "workflow",
+  "meta": {
+    "title": "启动过程",
+    "quality_profile": "showcase",
+    "output": "process.html"
+  },
+  "lanes": [
+    { "id": "boot", "label": "启动过程" }
+  ],
+  "mainPath": ["step-1", "step-2"],
+  "nodes": [
+    { "id": "step-1", "lane": "boot", "col": 0, "type": "database", "label": "读取配置", "sublabel": "从已有配置文件读取参数", "width": 180 },
+    { "id": "step-2", "lane": "boot", "col": 1, "type": "backend", "label": "启动模块", "sublabel": "使用已有参数启动模块", "width": 180 }
+  ],
+  "edges": [
+    { "id": "step-1-step-2", "from": "step-1", "to": "step-2", "label": "随后调用", "variant": "emphasis" }
+  ],
+  "cards": [
+    {
+      "dot": "cyan",
+      "title": "启动笔记",
+      "items": [
+        "看清已有启动步骤和调用顺序",
+        "file:///C:/study/boot.md",
+        "2026-10-28T10:00:00+08:00",
+        "confirmed"
+      ]
+    }
+  ]
+}

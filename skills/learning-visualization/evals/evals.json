@@ -1,0 +1,23 @@
+{
+  "skill_name": "learning-visualization",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "读取 C:\\study\\irq\\定义.md。文件只有一个中断优先级的简单定义，请判断是否需要可视化。",
+      "expected_output": "门禁不通过，不创建 HTML、JSON 或历史备份，并说明只有单个定义。",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "读取 C:\\study\\foc\\content.json。里面已有两个角度的例子、抽象概念、映射、边界和来源，请生成一个可切换和高亮的解释页。",
+      "expected_output": "生成一个解释页和对应 JSON；页面能切换例子并高亮已有关系，不添加新例子。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "读取 C:\\study\\boot\\flow.yaml。内容已有启动步骤、时间顺序和调用关系；优先用 Archify，若不可用则退回内置页面。",
+      "expected_output": "门禁通过；Archify 3.2 可用时使用 workflow 或 sequence 并通过 finalize，否则生成可交互后备页面。",
+      "files": []
+    }
+  ]
+}

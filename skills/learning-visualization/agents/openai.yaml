@@ -1,0 +1,4 @@
+interface:
+  display_name: "学习内容可视化"
+  short_description: "把已有笔记、例子、关系、步骤和空间信息转换成交互页面，不补知识、不教学、不评分"
+  default_prompt: "使用 $learning-visualization，读取我提供的绝对路径，只把已有内容整理为一个经过门禁和验证的交互可视化。"

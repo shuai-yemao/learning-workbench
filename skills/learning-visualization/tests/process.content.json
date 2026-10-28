@@ -1,0 +1,28 @@
+{
+  "topic": "启动过程",
+  "purpose": "看清已有启动步骤和调用顺序",
+  "concepts": [],
+  "examples": [],
+  "relations": [
+    { "from": "step-1", "to": "step-2", "meaning": "随后调用" }
+  ],
+  "steps": [
+    { "id": "step-1", "title": "读取配置", "content": "从已有配置文件读取参数" },
+    { "id": "step-2", "title": "启动模块", "content": "使用已有参数启动模块" }
+  ],
+  "sources": [
+    {
+      "title": "启动笔记",
+      "url": "file:///C:/study/boot.md",
+      "accessed_at": "2026-10-28T10:00:00+08:00",
+      "supports": ["step-1", "step-2"],
+      "evidence_status": "confirmed"
+    }
+  ],
+  "assets": [],
+  "visualization_request": {
+    "preferred_mode": "process",
+    "interaction": "step-through",
+    "allow_3d": false
+  }
+}

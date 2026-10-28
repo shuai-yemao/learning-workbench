@@ -1,14 +1,15 @@
 # Learning Workbench / 个人学习台
 
-运行在 Codex 中的个人学习闭环插件。当前 Agent 担任老师，三个 Skill 分别负责整体指导、知识点学习和快速概念问答。
+运行在 Codex 中的个人学习插件。当前 Agent 担任老师，三个教学 Skill 分别负责整体指导、知识点学习和快速概念问答；第四个独立 Skill 只负责把已有内容转换成可交互页面。
 
-## 三个学习入口
+## 四个入口
 
 | Skill | 用途 | 主要产出 |
 | --- | --- | --- |
 | `learning-method` | 明确目的、用途、学习范围和掌握标准，调整整体路线 | 持续维护的《学习进度与目标.md》 |
 | `knowledge-point-learning` | 开放探索核心知识点及关联知识，检验理解和运用 | 用户思维导图、考试答案、费曼文章及诊断 |
 | `quick-concept-answer` | 简短解决定义、用途、区别和局部疑问 | 直接结论与必要例子，默认正文不超过 300 个中文字符 |
+| `learning-visualization` | 读取用户指定路径中的已有内容并判断是否值得可视化 | 交互 HTML、JSON 源描述和历史版本；不教学、不补知识、不评分 |
 
 ## 安装
 
@@ -27,12 +28,13 @@ codex plugin add learning-workbench@learning-workbench --json
 codex plugin list --marketplace learning-workbench --json
 ```
 
-市场名称相同，本地源与 GitHub 源按当前配置选用。安装后在新会话中使用三个 Skill。
+市场名称相同，本地源与 GitHub 源按当前配置选用。安装后在新会话中使用四个 Skill。
 
 ```text
 使用 $learning-method，明确我的学习目的，并创建或更新学习进度与目标文件。
 使用 $knowledge-point-learning，带我学习当前知识点，再让我输出导图、考试答案和费曼文章。
 使用 $quick-concept-answer，简短解释我的概念问题。
+使用 $learning-visualization，读取我提供的绝对路径，只把已有内容整理为一个交互可视化。
 ```
 
 ## 学习闭环与记录
@@ -47,10 +49,10 @@ codex plugin list --marketplace learning-workbench --json
 
 ## 开发与验证
 
-插件包含 `.codex-plugin/plugin.json`、`.agents/plugins/marketplace.json`、三个 `skills/*/SKILL.md` 及其界面配置。没有 Node 服务或应用构建步骤。贡献规则和本地 Skill 校验命令见 [AGENTS.md](AGENTS.md)。
+插件包含 `.codex-plugin/plugin.json`、`.agents/plugins/marketplace.json`、四个 `skills/*/SKILL.md` 及其界面配置。`learning-visualization` 额外包含一个无第三方依赖的 Node.js 后备渲染和校验脚本；没有常驻 Node 服务或应用构建步骤。贡献规则和本地 Skill 校验命令见 [AGENTS.md](AGENTS.md)。
 
 结构校验及安装成功只能证明文件格式和插件加载；教学效果、跨会话续学和实际学习目的的实现，需要真实使用验证。教学、诊断与文件维护依靠当前宿主 Agent，后台同步、主动提醒和独立评分程序尚未提供。
 
 ## 版本与历史
 
-当前重构版为 `0.3.0`，发布于 `codex/learning-workbench-rebuild`。早期 TypeScript MVP 保留在 `codex/learning-workbench-mvp`。重构版采用 Markdown/YAML Skill，使用学习进度文件保持连续性。
+当前工作版为 `0.4.0`，位于 `codex/learning-workbench-rebuild`。早期 TypeScript MVP 保留在 `codex/learning-workbench-mvp`。重构版采用 Markdown/YAML Skill，使用学习进度文件保持连续性；可视化 Skill 与三个教学 Skill 没有调用关系。
