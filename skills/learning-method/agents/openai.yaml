@@ -1,4 +1,4 @@
 interface:
-  display_name: "整体学习指导"
-  short_description: "明确学习目的与能力标准，生成并持续维护学习进度文件，用知识点检验与实践证据复盘调整"
-  default_prompt: "使用 $learning-method，明确我的学习目的与能力标准，创建或更新《学习进度与目标.md》，据此安排学习并检查目的实现。"
+  display_name: "项目目的形成"
+  short_description: "只处理为什么阶段，从现实问题和证据形成可复盘的当前工作目的"
+  default_prompt: "使用 $learning-method，只澄清我为什么要推进这件事：每轮复述已确认信息，指出唯一关键模糊点并只问一个问题；不要选择项目、平台或工具，不要拆执行计划，也不要在我确认前为具体项目写入 why 文件。"
