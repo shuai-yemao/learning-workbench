@@ -7,12 +7,12 @@
 - `.codex-plugin/plugin.json`：插件名称、版本、Skill 路径与界面信息。
 - `.agents/plugins/marketplace.json`：可注册的插件市场，插件源指向仓库根目录。
 
-- `skills/learning-method/`：整体学习目的、路线、方法，以及《学习进度与目标.md》的维护规则。
+- `skills/project-purpose/`：项目“为什么阶段”，负责澄清现实问题、结果证据、目的优先级和目的复盘，不负责项目选择或执行计划。
 - `skills/knowledge-point-learning/`：开放探索关联知识，通过用户导图、考试答案和费曼文章检验掌握。
 - `skills/quick-concept-answer/`：简短概念问答，默认正文不超过 300 个中文字符。
 - `skills/learning-visualization/`：把用户已准备的内容转换成交互 HTML、Archify 图或简化三维模型，不负责教学、研究、考试或进度。
 - 每个 Skill 的 `SKILL.md` 定义行为，`agents/openai.yaml` 定义界面信息。
-- `skills/learning-method/assets/learning-progress-template.md` 是学习记录模板；个人记录位于用户指定目录或 `learning-records/<主题>/`，与插件文件分开。
+- `skills/project-purpose/assets/learning-progress-template.md` 是保留的旧版学习进度模板，当前不被 `project-purpose` 引用；个人记录与插件文件分开。
 
 ## 开发与验证命令
 
@@ -26,7 +26,7 @@ Get-ChildItem .\skills -Directory | ForEach-Object {
 }
 ```
 
-校验器检查命名、frontmatter 和未完成占位符；不会证明教学效果。接入宿主后，用 `$learning-method` 等显式调用验证实际行为。
+校验器检查命名、frontmatter 和未完成占位符；不会证明教学效果。接入宿主后，用 `$project-purpose` 等显式调用验证实际行为。
 
 修改可视化 Skill 时，再运行 Node.js 内置测试：
 

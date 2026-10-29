@@ -20,7 +20,7 @@ description: "把用户已经准备好的学习笔记、代码、本地图片或
 
 不要做这些事：
 
-- 不调用 `learning-method`、`knowledge-point-learning`、`quick-concept-answer` 或任何其他 Skill。
+- 不调用 `project-purpose`、`knowledge-point-learning`、`quick-concept-answer` 或任何其他 Skill。
 - 不主动搜索网络，不筛选网络资料，不形成新的知识结论。
 - 不补充专业知识、生活化例子、教学关系、步骤或来源。
 - 不设计课程，不出题，不评分，不判断掌握度或学习进度。

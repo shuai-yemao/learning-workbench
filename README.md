@@ -6,7 +6,7 @@
 
 | Skill | 用途 | 主要产出 |
 | --- | --- | --- |
-| `learning-method` | 明确目的、用途、学习范围和掌握标准，调整整体路线 | 持续维护的《学习进度与目标.md》 |
+| `project-purpose` | 从愿望、活动和工具线索中澄清为什么推进 | 用户确认后维护 `why/rules.md` 与 `why/project-purpose.md` |
 | `knowledge-point-learning` | 开放探索核心知识点及关联知识，检验理解和运用 | 用户思维导图、考试答案、费曼文章及诊断 |
 | `quick-concept-answer` | 简短解决定义、用途、区别和局部疑问 | 直接结论与必要例子，默认正文不超过 300 个中文字符 |
 | `learning-visualization` | 读取用户指定路径中的已有内容并判断是否值得可视化 | 交互 HTML、JSON 源描述和历史版本；不教学、不补知识、不评分 |
@@ -31,7 +31,7 @@ codex plugin list --marketplace learning-workbench --json
 市场名称相同，本地源与 GitHub 源按当前配置选用。安装后在新会话中使用四个 Skill。
 
 ```text
-使用 $learning-method，明确我的学习目的，并创建或更新学习进度与目标文件。
+使用 $project-purpose，只澄清我为什么要推进这件事；不要选择具体项目、平台或执行计划。
 使用 $knowledge-point-learning，带我学习当前知识点，再让我输出导图、考试答案和费曼文章。
 使用 $quick-concept-answer，简短解释我的概念问题。
 使用 $learning-visualization，读取我提供的绝对路径，只把已有内容整理为一个交互可视化。
