@@ -1,0 +1,4 @@
+interface:
+  display_name: "项目定义"
+  short_description: "根据已确认目的比较候选项目，定义整体框架、组成、关系、边界和特点"
+  default_prompt: "使用 $project-definition，先读取我项目中的 why/project-purpose.md，检查目的入口，再比较候选项目并通过两次确认形成 what/project-definition.md；不要搜索资料、拆实施任务或直接实现代码。"
