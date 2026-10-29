@@ -8,8 +8,8 @@
       "name": "learning-workbench",
       "version": "0.5.0",
       "source": {
-        "source": "local",
-        "path": "./"
+        "source": "url",
+        "url": "https://github.com/shuai-yemao/learning-workbench.git"
       },
       "policy": {
         "installation": "AVAILABLE",
