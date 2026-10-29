@@ -9,6 +9,7 @@
 
 - `skills/project-purpose/`：项目“为什么阶段”，负责澄清现实问题、结果证据、目的优先级和目的复盘，不负责项目选择或执行计划。
 - `skills/project-definition/`：项目“是什么阶段”，根据已确认目的比较候选项目，定义整体框架、组成、关系和边界，不负责搜索或实施。
+- `skills/project-decomposition/`：项目“怎么做阶段”，通过三次确认拆分里程碑、进度节点、既定项目部分、操作大纲和所需能力，不负责具体步骤、教学或执行。
 - `skills/knowledge-point-learning/`：开放探索关联知识，通过用户导图、考试答案和费曼文章检验掌握。
 - `skills/quick-concept-answer/`：简短概念问答，默认正文不超过 300 个中文字符。
 - `skills/ai-info-gathering/`：搜集 AI 动态、工具、论文和插件方案，优先核实 GitHub 与官方来源。
@@ -55,6 +56,7 @@ node --test .\skills\learning-visualization\tests\visualize.test.mjs
 4. 继续学习先读取已有进度文件，更新证据并保留手工内容和历史。
 5. 信息搜集必须保留来源、日期、可信度和核实状态，搜集或阅读资料不计为掌握证据。
 6. 资料归档默认写入用户工作区或指定目录，不写进插件安装目录。
+7. 项目分解必须读取已确认的 `what/project-definition.md`，三次确认前不得越级；知识点和技能分别记录，不把历史计划当成当前真实进度。
 
 报告时区分文件校验、宿主行为验证和实际学习结果。
 

@@ -1,13 +1,14 @@
 # Learning Workbench / 个人学习台
 
-运行在 Codex 中的个人学习插件。四个学习与项目 Skill 负责目的澄清、项目定义、知识点学习和快速概念问答；两个信息 Skill 负责 AI 信息搜集与技术资料归档；另一个独立 Skill 只负责把已有内容转换成可交互页面。
+运行在 Codex 中的个人学习插件。五个学习与项目 Skill 负责目的澄清、项目定义、项目分解、知识点学习和快速概念问答；两个信息 Skill 负责 AI 信息搜集与技术资料归档；另一个独立 Skill 只负责把已有内容转换成可交互页面。
 
-## 七个入口
+## 八个入口
 
 | Skill | 用途 | 主要产出 |
 | --- | --- | --- |
 | `project-purpose` | 从愿望、活动和工具线索中澄清为什么推进 | 用户确认后维护 `why/rules.md` 与 `why/project-purpose.md` |
 | `project-definition` | 根据已确认目的比较候选项目，明确项目是什么 | 用户两次确认后维护 `what/project-definition.md` |
+| `project-decomposition` | 在已确认框架内拆分里程碑、进度节点、操作大纲和所需能力 | 用户三次确认后维护 `how/project-plan.md` |
 | `knowledge-point-learning` | 开放探索核心知识点及关联知识，检验理解和运用 | 用户思维导图、考试答案、费曼文章及诊断 |
 | `quick-concept-answer` | 简短解决定义、用途、区别和局部疑问 | 直接结论与必要例子，默认正文不超过 300 个中文字符 |
 | `ai-info-gathering` | 搜集并核实 AI 动态、模型、论文、Agent 工具和插件方案 | 带时间、来源类型和可信度的聊天速览 |
@@ -31,11 +32,12 @@ codex plugin add learning-workbench@learning-workbench --json
 codex plugin list --marketplace learning-workbench --json
 ```
 
-市场名称相同，本地源与 GitHub 源按当前配置选用。安装后在新会话中使用七个 Skill。
+市场名称相同，本地源与 GitHub 源按当前配置选用。安装后在新会话中使用八个 Skill。
 
 ```text
 使用 $project-purpose，只澄清我为什么要推进这件事；不要选择具体项目、平台或执行计划。
 使用 $project-definition，根据已确认的项目目的比较候选项目，并通过两次确认形成项目定义。
+使用 $project-decomposition，读取已确认的项目定义，通过三次确认形成项目怎么做计划；只生成操作大纲，不生成具体步骤。
 使用 $knowledge-point-learning，带我学习当前知识点，再让我输出导图、考试答案和费曼文章。
 使用 $quick-concept-answer，简短解释我的概念问题。
 使用 $ai-info-gathering，核实最新 AI 动态、工具、论文或插件方案，并给出可核链接。
@@ -55,7 +57,7 @@ codex plugin list --marketplace learning-workbench --json
 
 ## 开发与验证
 
-插件包含 `.codex-plugin/plugin.json`、`.agents/plugins/marketplace.json`、七个正式 `skills/*/SKILL.md` 及其界面配置。`learning-visualization` 额外包含一个无第三方依赖的 Node.js 后备渲染和校验脚本；没有常驻 Node 服务或应用构建步骤。贡献规则和本地 Skill 校验命令见 [AGENTS.md](AGENTS.md)。
+插件包含 `.codex-plugin/plugin.json`、`.agents/plugins/marketplace.json`、八个正式 `skills/*/SKILL.md` 及其界面配置。`learning-visualization` 额外包含一个无第三方依赖的 Node.js 后备渲染和校验脚本；没有常驻 Node 服务或应用构建步骤。贡献规则和本地 Skill 校验命令见 [AGENTS.md](AGENTS.md)。
 
 结构校验及安装成功只能证明文件格式和插件加载；教学效果、跨会话续学和实际学习目的的实现，需要真实使用验证。教学、诊断与文件维护依靠当前宿主 Agent，后台同步、主动提醒和独立评分程序尚未提供。
 

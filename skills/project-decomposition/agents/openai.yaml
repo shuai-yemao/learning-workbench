@@ -1,0 +1,4 @@
+interface:
+  display_name: "项目分解"
+  short_description: "在已确认项目范围内拆分里程碑、进度节点、操作大纲和所需能力"
+  default_prompt: "使用 $project-decomposition，先读取我项目中的 what/project-definition.md，检查项目定义入口，再通过三次确认形成 how/project-plan.md；只生成操作大纲，不生成具体操作步骤，不教学、不训练，也不执行项目。"
