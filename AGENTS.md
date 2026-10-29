@@ -8,8 +8,11 @@
 - `.agents/plugins/marketplace.json`：可注册的插件市场，插件源指向仓库根目录。
 
 - `skills/project-purpose/`：项目“为什么阶段”，负责澄清现实问题、结果证据、目的优先级和目的复盘，不负责项目选择或执行计划。
+- `skills/project-definition/`：项目“是什么阶段”，根据已确认目的比较候选项目，定义整体框架、组成、关系和边界，不负责搜索或实施。
 - `skills/knowledge-point-learning/`：开放探索关联知识，通过用户导图、考试答案和费曼文章检验掌握。
 - `skills/quick-concept-answer/`：简短概念问答，默认正文不超过 300 个中文字符。
+- `skills/ai-info-gathering/`：搜集 AI 动态、工具、论文和插件方案，优先核实 GitHub 与官方来源。
+- `skills/reference-archive/`：核实并分类保存技术参考资料，输出可继续追加的 Markdown 清单。
 - `skills/learning-visualization/`：把用户已准备的内容转换成交互 HTML、Archify 图或简化三维模型，不负责教学、研究、考试或进度。
 - 每个 Skill 的 `SKILL.md` 定义行为，`agents/openai.yaml` 定义界面信息。
 - `skills/project-purpose/assets/learning-progress-template.md` 是保留的旧版学习进度模板，当前不被 `project-purpose` 引用；个人记录与插件文件分开。
@@ -50,6 +53,8 @@ node --test .\skills\learning-visualization\tests\visualize.test.mjs
 2. 复杂知识点允许关联展开，按导图、考试、文章的顺序检验。
 3. 用户作答前不泄露考试答案，老师示范与用户独立产出分别记录。
 4. 继续学习先读取已有进度文件，更新证据并保留手工内容和历史。
+5. 信息搜集必须保留来源、日期、可信度和核实状态，搜集或阅读资料不计为掌握证据。
+6. 资料归档默认写入用户工作区或指定目录，不写进插件安装目录。
 
 报告时区分文件校验、宿主行为验证和实际学习结果。
 

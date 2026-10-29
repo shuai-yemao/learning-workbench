@@ -1,0 +1,4 @@
+interface:
+  display_name: "参考资料归档"
+  short_description: "核实并分类保存技术资料，生成可继续追加的 Markdown 清单"
+  default_prompt: "使用 $reference-archive，围绕我的主题搜集并核实技术资料，分类写入一份可继续追加的 Markdown 文件。"

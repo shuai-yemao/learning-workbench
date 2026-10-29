@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI 信息搜集"
+  short_description: "核实 AI 动态、工具、论文和插件方案，并提供可追查链接"
+  default_prompt: "使用 $ai-info-gathering，围绕我的主题搜集并核实最新 AI 信息，优先给出 GitHub 和官方来源。"
