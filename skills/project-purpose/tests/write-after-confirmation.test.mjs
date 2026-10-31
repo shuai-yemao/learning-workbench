@@ -47,3 +47,18 @@ test("输出地址必须由用户指定且不得位于插件内", async () => {
   assert.match(rules, /用户未指定输出目录时，只询问输出地址/);
   assert.match(openai, /必须让我明确指定插件之外的绝对输出目录/);
 });
+
+test("需求对齐先于草稿且一次只处理一个部分", async () => {
+  const skill = await read("SKILL.md");
+  const rules = await read("why/rules.md");
+  const openai = await read("agents/openai.yaml");
+
+  assert.match(skill, /每轮只处理一个需求部分/);
+  assert.match(skill, /在当前需求没有对齐前，不输出完整目的草稿/);
+  assert.match(skill, /一次只展示一个待审查部分/);
+
+  assert.match(rules, /先完成当前部分的需求对齐，再输出该部分草稿/);
+  assert.match(rules, /草稿必须分片展示/);
+  assert.match(openai, /先逐项进行需求对齐/);
+  assert.match(openai, /在对齐完成前不要输出完整草稿/);
+});
